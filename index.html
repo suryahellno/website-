@@ -1,0 +1,250 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Music Genre Selector</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #1f1c2c, #928dab);
+      min-height: 100vh;
+      color: #fff;
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .container {
+      margin-top: 50px;
+      background: rgba(30,30,40,0.85);
+      border-radius: 20px 20px 12px 12px;
+      padding: 32px 28px 40px 28px;
+      width: 340px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    }
+    h1 {
+      font-family: 'Montserrat', sans-serif;
+      text-align: center;
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+    }
+    .question {
+      text-align: center;
+      font-size: 1.2rem;
+      margin-bottom: 18px;
+      margin-top: 6px;
+    }
+    .genres {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .genre-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      background-color: #31304d;
+      color: #fff;
+      font-size: 1.08rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 9px;
+      cursor: pointer;
+      transition: background 0.18s, transform 0.12s;
+      box-shadow: 0 2px 18px rgba(56,56,80,0.08);
+    }
+    .genre-btn:hover {
+      background-color: #5433ff;
+      transform: translateY(-2px) scale(1.03);
+    }
+    .genre-icon {
+      font-size: 1.35rem;
+    }
+    .languages {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 24px;
+      margin-bottom: 6px;
+    }
+    .lang-btn {
+      background: linear-gradient(120deg, #5433ff, #20bdff);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 24px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.16s, transform 0.11s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 2px 18px rgba(90,90,140,0.10);
+    }
+    .lang-btn:hover {
+      background: linear-gradient(120deg, #ee0979, #ff6a00);
+      transform: scale(1.06);
+    }
+    .back-btn {
+      margin-top: 20px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      background: none;
+      color: #bbb;
+      border: 1.5px dashed #888;
+      border-radius: 8px;
+      padding: 6px 18px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: color 0.14s, border 0.14s;
+    }
+    .back-btn:hover {
+      color: #fff;
+      border-color: #fff;
+    }
+    .img-decoration {
+      display: block;
+      margin: 0 auto 22px auto;
+      width: 72px;
+      filter: drop-shadow(0 0 18px #5433ff90);
+      user-select: none;
+      pointer-events: none;
+      opacity: 0.94;
+      animation: spinDisc 8s linear infinite;
+    }
+
+    @keyframes spinDisc {
+      0% { transform: rotate(0deg);}
+      100% { transform: rotate(360deg);}
+    }
+    @media (max-width: 420px) {
+      .container { width: 98vw; padding: 12px 2vw 24px 2vw;}
+      .img-decoration { width: 50px;}
+      .languages { gap: 14px;}
+      .back-btn { font-size: 0.93rem;}
+    }
+  </style>
+</head>
+<body>
+  <!-- Record disc SVG image -->
+  <svg class="img-decoration" viewBox="0 0 512 512">
+    <circle cx="256" cy="256" r="240" fill="#111831"/>
+    <circle cx="256" cy="256" r="175" fill="#1c2243"/>
+    <circle cx="256" cy="256" r="118" fill="#5537ad"/>
+    <circle cx="256" cy="256" r="38" fill="#fff"/>
+    <circle cx="256" cy="256" r="20" fill="#6241c2"/>
+  </svg>
+  <div class="container">
+    <h1>🎵 Music Hub</h1>
+    <div id="main-content">
+      <div class="question">Select a type of genre you want to listen:</div>
+      <div class="genres">
+        <button class="genre-btn" onclick="selectGenre('classical')">
+          <span class="genre-icon">🎻</span> Classical music
+        </button>
+        <button class="genre-btn" onclick="selectGenre('rock')">
+          <span class="genre-icon">🎸</span> Rock music
+        </button>
+        <button class="genre-btn" onclick="selectGenre('hiphop')">
+          <span class="genre-icon">🎤</span> Hip Hop music
+        </button>
+        <button class="genre-btn" onclick="selectGenre('pop')">
+          <span class="genre-icon">🎧</span> Pop music
+        </button>
+        <button class="genre-btn" onclick="selectGenre('rnb')">
+          <span class="genre-icon">🪩</span> R&B music
+        </button>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Mapping playlists by genre and language
+    const playlists = {
+      'classical': {
+        'hindi': 'https://open.spotify.com/playlist/0LZpvUY2z0tJsoXYp0FUyQ?si=53xOV3QzRFeJWojw50cb5g&pi=vgvIK2XRTyO_D',
+        'english': 'https://open.spotify.com/playlist/0qaqzXQwA9zKRt2eAA1U2I?si=N6pum4waSZWQKFWegu4DIw'
+      },
+      'rock': {
+        'hindi': 'https://open.spotify.com/playlist/0aUuonumUkKhRBBZabkFDN?si=dy4Oyi8VQU-vv3xri1EGRA&pi=IKtj8C5xTcW12',
+        'english': 'https://open.spotify.com/playlist/6mj1ny8KL3k7XU9uqBS7Nb?si=ocnZjwVsRg-GhP8OlNooJA&pi=QueyoMRITh2ky'
+      },
+      'pop': {
+        'hindi': 'https://open.spotify.com/playlist/2ateuN3z7g36oeMx2g2yBH?si=a3diRQLwRWudnjtpMqtTnQ&pi=5mfjUDEPQcaz-',
+        'english': 'https://open.spotify.com/playlist/4Q4MQaPTKRxN7FTZG4ENGc?si=WNzs5a9OTgy9ri_uOYMkYw&pi=k2vZRrmISNqn5'
+      },
+      'hiphop': {
+        'hindi': 'https://open.spotify.com/playlist/44jXZqNlp2fpDrZnLkd4n6?si=8lZ5rz9PTdWlxPRrbaFNHA&pi=SewUarOpS0m8C',
+        'english': 'https://open.spotify.com/playlist/2D3ets5dnT2y0cQStbhfOr?si=syK-G7AwS4KLivMwtAvE4w&pi=-D9GA69vQDC64'
+      },
+      'rnb': {
+        'hindi': 'https://open.spotify.com/playlist/6dNZFDdBoiepdNNUkodvi7?si=N02JN5yTRfiiRaxKYN3olA&pi=7HSyyTHATv61j',
+        'english': 'https://open.spotify.com/playlist/2wf6w6nToqdLuuPgoywu9p?si=-9l4CjuOQrqDahjCUdmrow&pi=9da0bBCQRZq56'
+      }
+    };
+
+    // Current selected genre
+    let selectedGenre = null;
+
+    function selectGenre(genre) {
+      selectedGenre = genre;
+      const genreNames = {
+        'classical': 'Classical',
+        'rock': 'Rock',
+        'hiphop': 'Hip Hop',
+        'pop': 'Pop',
+        'rnb': 'R&B'
+      };
+      document.getElementById("main-content").innerHTML = `
+        <div class="question">
+          Pick your preferred language for <b>${genreNames[genre]}</b> music:
+        </div>
+        <div class="languages">
+          <button class="lang-btn" onclick="openPlaylist('english')">
+            <span>🇬🇧</span> English
+          </button>
+          <button class="lang-btn" onclick="openPlaylist('hindi')">
+            <span>🇮🇳</span> Hindi
+          </button>
+        </div>
+        <button class="back-btn" onclick="goBack()">&#8592; Go Back</button>
+      `;
+    }
+
+    function openPlaylist(language) {
+      const url = playlists[selectedGenre][language];
+      if (url) {
+        window.open(url, '_blank');
+      }
+    }
+
+    function goBack() {
+      document.getElementById("main-content").innerHTML = `
+        <div class="question">Select a type of genre you want to listen:</div>
+        <div class="genres">
+          <button class="genre-btn" onclick="selectGenre('classical')">
+            <span class="genre-icon">🎻</span> Classical music
+          </button>
+          <button class="genre-btn" onclick="selectGenre('rock')">
+            <span class="genre-icon">🎸</span> Rock music
+          </button>
+          <button class="genre-btn" onclick="selectGenre('hiphop')">
+            <span class="genre-icon">🎤</span> Hip Hop music
+          </button>
+          <button class="genre-btn" onclick="selectGenre('pop')">
+            <span class="genre-icon">🎧</span> Pop music
+          </button>
+          <button class="genre-btn" onclick="selectGenre('rnb')">
+            <span class="genre-icon">🪩</span> R&B music
+          </button>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
